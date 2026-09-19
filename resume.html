@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Resume Analyzer</title>
+
+    <link rel="stylesheet" href="resume.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Smart<span>Resume</span></div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#analyzer">Analyzer</a>
+            <a href="#about">How It Works</a>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <p class="tag">AI-READY RESUME ANALYZER</p>
+
+            <h1>
+                Is Your Resume
+                <span>Job Ready?</span>
+            </h1>
+
+            <p class="hero-text">
+                Compare your resume with a job description and discover
+                your matching skills, missing skills and improvement areas.
+            </p>
+
+            <a href="#analyzer" class="hero-btn">
+                Analyze My Resume →
+            </a>
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="score-circle">
+                <span>78%</span>
+                <small>Match</small>
+            </div>
+
+            <div class="mini-info">
+                <p>✓ JavaScript</p>
+                <p>✓ HTML & CSS</p>
+                <p>✓ Responsive Design</p>
+                <p class="missing">× React</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Analyzer -->
+    <section class="analyzer-section" id="analyzer">
+
+        <div class="section-heading">
+            <p class="tag">RESUME ANALYSIS</p>
+
+            <h2>Analyze Your Resume</h2>
+
+            <p>
+                Paste your resume and the job description below.
+            </p>
+        </div>
+
+
+        <div class="input-container">
+
+            <!-- Resume -->
+            <div class="input-card">
+
+                <div class="card-title">
+                    <span>📄</span>
+
+                    <div>
+                        <h3>Your Resume</h3>
+                        <p>Paste your resume text</p>
+                    </div>
+                </div>
+
+                <textarea
+                    id="resumeText"
+                    placeholder="Example:
+
+Reeba
+BCA Student
+
+Skills:
+HTML, CSS, JavaScript, Python, C++
+
+Projects:
+To-Do List
+Counter App
+Notes App
+
+Education:
+BCA"
+                ></textarea>
+
+                <div class="char-count">
+                    <span id="resumeCount">0</span> characters
+                </div>
+
+            </div>
+
+
+            <!-- Job Description -->
+            <div class="input-card">
+
+                <div class="card-title">
+                    <span>💼</span>
+
+                    <div>
+                        <h3>Job Description</h3>
+                        <p>Paste the job requirements</p>
+                    </div>
+                </div>
+
+                <textarea
+                    id="jobText"
+                    placeholder="Example:
+
+We are looking for a Frontend Developer.
+
+Required Skills:
+HTML, CSS, JavaScript, React, Git,
+Responsive Design, REST API
+
+Responsibilities:
+Build responsive websites and
+interactive web applications."
+                ></textarea>
+
+                <div class="char-count">
+                    <span id="jobCount">0</span> characters
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="analyze-btn" onclick="analyzeResume()">
+            Analyze Resume →
+        </button>
+
+    </section>
+
+
+    <!-- Results -->
+    <section class="results-section" id="results">
+
+        <div class="section-heading">
+
+            <p class="tag">ANALYSIS RESULT</p>
+
+            <h2>Your Resume Analysis</h2>
+
+        </div>
+
+
+        <!-- Score -->
+        <div class="score-card">
+
+            <div class="score-left">
+
+                <div class="big-score" id="score">
+                    0%
+                </div>
+
+                <div>
+                    <h3 id="scoreTitle">Waiting for analysis</h3>
+
+                    <p id="scoreText">
+                        Enter your resume and job description above.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="progress-container">
+
+                <div class="progress-bar">
+                    <div id="progress"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Analysis Cards -->
+        <div class="analysis-grid">
+
+            <!-- Matching Skills -->
+            <div class="result-card">
+
+                <div class="result-heading">
+                    <span class="green-icon">✓</span>
+
+                    <div>
+                        <h3>Matching Skills</h3>
+                        <p>Skills found in both</p>
+                    </div>
+                </div>
+
+                <div id="matchedSkills" class="skills-container">
+                    <span class="empty">
+                        No analysis yet
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- Missing Skills -->
+            <div class="result-card">
+
+                <div class="result-heading">
+                    <span class="red-icon">!</span>
+
+                    <div>
+                        <h3>Missing Skills</h3>
+                        <p>Skills from the job description</p>
+                    </div>
+                </div>
+
+                <div id="missingSkills" class="skills-container">
+                    <span class="empty">
+                        No analysis yet
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Keyword Analysis -->
+        <div class="keyword-section">
+
+            <div class="result-heading">
+
+                <span class="blue-icon">🔍</span>
+
+                <div>
+                    <h3>Keyword Analysis</h3>
+                    <p>Important job-related keywords</p>
+                </div>
+
+            </div>
+
+
+            <div id="keywordList" class="keyword-list">
+                <span class="empty">
+                    Analyze your resume to see keywords.
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- Suggestions -->
+        <div class="suggestion-section">
+
+            <div class="result-heading">
+
+                <span class="yellow-icon">💡</span>
+
+                <div>
+                    <h3>Improvement Suggestions</h3>
+                    <p>Things you can improve</p>
+                </div>
+
+            </div>
+
+
+            <div id="suggestions">
+
+                <div class="suggestion">
+                    <span>1</span>
+                    <p>
+                        Add your resume and job description to receive
+                        personalized suggestions.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- How It Works -->
+    <section class="how-section" id="about">
+
+        <div class="section-heading">
+
+            <p class="tag">HOW IT WORKS</p>
+
+            <h2>Three Simple Steps</h2>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">01</div>
+
+                <h3>Paste Resume</h3>
+
+                <p>
+                    Add your resume content into the analyzer.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">02</div>
+
+                <h3>Add Job Description</h3>
+
+                <p>
+                    Paste the job requirements you want to target.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">03</div>
+
+                <h3>Get Analysis</h3>
+
+                <p>
+                    See your match score, skills and suggestions.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <h3>Smart<span>Resume</span></h3>
+
+        <p>
+            Frontend Resume Analysis Project
+        </p>
+
+        <p>
+            © 2026 Smart Resume Analyzer
+        </p>
+
+    </footer>
+
+
+    <script src="resume.js"></script>
+
+</body>
+</html>
