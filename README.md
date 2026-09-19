@@ -3,6 +3,7 @@
 A frontend-based web application that analyzes how relevant a resume is to a particular job description and highlights matching skills, missing skills, and areas for improvement.
 
 🚀 Overview
+  View Smart Resume Analyzer=[https://reeba-star.github.io/smart-resume-analyzer/]
 
 Finding out whether a resume matches a particular job can be difficult, especially for students and freshers.
 
